@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Polls All results{% endblock %}
+
+{% block content %}
+{% if latest_question_list %}
+    <ul>
+        {% for question in latest_question_list %}
+        <li><h2>{{question.question_text}}</h2></li>
+        <ul>
+        {% for choice in question.choice_set.all %}
+        <li>
+        {{choice.choice_text}} -- {{choice.votes}} vote{{choice.votes|pluralize}}</li>
+        {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls and results are available.</p>
+{% endif %}
+<a href="{% url 'polls:index' %}" class="btn btn-outline-dark btn-sm">Back[index]</a>
+{% endblock %}
